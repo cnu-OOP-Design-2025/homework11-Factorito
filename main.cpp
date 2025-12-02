@@ -6,6 +6,9 @@
 #include "my_smart_ptr.h"
 using namespace std;
 
+// my_unique_ptr에서 복사 생성자와 복사 대입 연산자를 delete한 이유는 무엇일까요? : unique를 복사하여 오류를 일으킬 경우수를 배제하기 위하여
+// stl::sort()를 이용해 캐릭터 인스턴스를 공격력/방어력 순서로 정렬하기 위해서 어떤 코드를 추가해야 할까요? : 람다식 이용.
+
 void equip_test1(shared_ptr<Character> c1) {
     c1 = make_shared<Armor>(c1);
     c1 = make_shared<Boots>(c1);
@@ -44,6 +47,9 @@ void doTest3() {
     // Zombie 캐릭터를 players에 추가
     // Skeleton 캐릭터를 players에 추가
     // Lich 캐릭터를 players에 추가
+    players.push_back(make_shared<UndeadAdapter>(make_shared<Zombie>()));
+    players.push_back(make_shared<UndeadAdapter>(make_shared<Skeleton>()));
+    players.push_back(make_shared<UndeadAdapter>(make_shared<Lich>()));
 
 
     for(auto player: players){
